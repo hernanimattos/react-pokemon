@@ -1,0 +1,57 @@
+nav {
+  background-color: red;
+  display: flex;
+}
+
+.logo {
+  width: 100px;
+
+  padding: 0.5rem;
+  img {
+    width: 100%;
+  }
+}
+
+.form-wrapper__input {
+  display: flex;
+  width: 100%;
+}
+.form {
+  display: flex;
+
+  flex-direction: column;
+}
+.input-form {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  label {
+    display: block;
+    margin-right: 1rem;
+  }
+}
+.form-input__form {
+  display: flex;
+  width: 100%;
+  .search {
+    width: inherit;
+    height: 2rem;
+  }
+}
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+/*
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  appearance: none;
+}*/
