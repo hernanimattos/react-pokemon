@@ -3,7 +3,7 @@ import { searchProxy } from "./store/actions";
 import { connect } from "react-redux";
 import CardContainer from "./container/CardContainer";
 import Details from "./components/details/Details";
-import Menu from "./container/menu/Menu";
+import Menu from "./components/menu/Menu";
 import Http from "./provider/Http";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -19,7 +19,7 @@ const mapStateToDispatch = (dispatch) => {
 const AppConnect = ({ searchProxy }) => {
   const [pokemons, setPockemons] = useState([]);
   const [term, setTerm] = useState("");
-  const [typeSearch, setTypeSearch] = useState("number");
+  const [typeSearch, setTypeSearch] = useState("name");
 
   useEffect(() => {
     Http.get("pokemon?limit=20&search=true")

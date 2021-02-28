@@ -24,12 +24,12 @@ const Menu = ({ getTerm, submit, getTypeSearch }) => {
               />
             </div>
             <div className="input-form">
-              <label htmlFor="hability"> habilidade</label>
+              <label htmlFor="ability"> habilidade</label>
               <input
-                id="hability"
+                id="ability"
                 type="radio"
                 name="search"
-                value="hability"
+                value="ability"
                 onChange={getTypeSearch}
               />
             </div>

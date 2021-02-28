@@ -1,23 +1,27 @@
-import { SET_TERM } from "./types";
+import { SEARCH } from "./types";
 import Http from "../provider/Http";
-// http://pokeapi.co/api/v2/pokemon/{idPokemon}
-const searchByName = async (name) => {
-  // console.log(number);
-  return await Http.get(name);
+
+const searchByName = async (nameOrId) => {
+  const { data } = await Http.get(`pokemon/${nameOrId}`);
+
+  return data;
 };
 
-const searchByHability = async (term) => {
-  // console.log(hability);
-  const { data } = await Http.get(`pokemon`);
+const searchByAbility = async (ability) => {
+  const { data } = await Http.get(`ability/${ability}`);
 
   return data;
 };
 
 const searchProxy = (type, term) => {
   return async (dispatch) => {
-    const data = await searchByHability(term);
+    const typeSearch = {
+      ability: searchByAbility,
+      name: searchByName,
+    };
+    const data = await typeSearch[type](term);
 
-    dispatch({ type: SET_TERM, payload: data });
+    dispatch({ type: SEARCH, payload: data });
   };
 };
 

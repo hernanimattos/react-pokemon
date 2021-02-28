@@ -1,3 +1,3 @@
-const SET_TERM = "SET_TERM";
+const SEARCH = "SEARCH";
 
-export { SET_TERM };
+export { SEARCH };
