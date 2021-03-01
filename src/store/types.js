@@ -1,3 +1,4 @@
 const SEARCH = "SEARCH";
+const CHARGE_MAINPAGE = "CHARGE_MAINPAGE";
 
-export { SEARCH };
+export { SEARCH, CHARGE_MAINPAGE };

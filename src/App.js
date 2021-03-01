@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { searchProxy } from "./store/actions";
+import { searchProxy, chargeMainPage } from "./store/actions";
 import { connect } from "react-redux";
 import CardContainer from "./container/CardContainer";
 import Details from "./components/details/Details";
@@ -13,33 +13,29 @@ import "./App.scss";
 const mapStateToDispatch = (dispatch) => {
   return {
     searchProxy: (type, term) => dispatch(searchProxy(type, term)),
+    chargeMainPage: () => dispatch(chargeMainPage())
   };
 };
 
-const AppConnect = ({ searchProxy }) => {
-  const [pokemons, setPockemons] = useState([]);
+const mapStateToProps = (state) => {
+  console.log(state, "---")
+
+return {
+  pokemons: state.data
+}
+
+}
+
+const AppConnect = ({ searchProxy, chargeMainPage, pokemons }) => {
+
+  console.log(pokemons, ' ---o-o-o-')
+  // const [pokemons, setPockemons] = useState([]);
   const [term, setTerm] = useState("");
   const [typeSearch, setTypeSearch] = useState("name");
 
   useEffect(() => {
-    Http.get("pokemon?limit=20&search=true")
-      .then((response) => {
-        const { data } = response;
-        const { results } = data;
+    chargeMainPage()
 
-        return results;
-      })
-      .then((resp) => {
-        // eslint-disable-next-line no-undef
-        Promise.all(resp.map((result) => axios.get(result.url))).then((res) => {
-          const pokemons = res.map((p) => p.data);
-
-          setPockemons(pokemons);
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }, []);
 
   return (
@@ -63,6 +59,6 @@ const AppConnect = ({ searchProxy }) => {
   );
 };
 
-const App = connect(null, mapStateToDispatch)(AppConnect);
+const App = connect(mapStateToProps, mapStateToDispatch)(AppConnect);
 
 export default App;

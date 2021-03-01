@@ -4,17 +4,19 @@ import Card from "../components/card/Card";
 import MainContainer from "./MainContainer";
 
 const mapStateToProps = (state) => {
+
   return {
     data: state.data,
+    pokemons: state.pokemons
   };
 };
 
-const CardContainerConect = ({ data }) => {
-  const { results } = data;
-
+const CardContainerConect = ({data, pokemons}) => {
+  const isList  = Array.isArray(pokemons) && pokemons.length > 0
   return (
     <MainContainer>
-      {results && results.map((props) => <Card {...props} key={props.name} />)}
+       { isList ? pokemons.map((props) => <Card {...props} key={props.name} />):
+       <Card {...data}/>}
     </MainContainer>
   );
 };

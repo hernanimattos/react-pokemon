@@ -1,7 +1,8 @@
-import { SEARCH } from "./types";
+import { SEARCH, CHARGE_MAINPAGE } from "./types";
 
 const initState = {
-  data: {},
+  data: [],
+  pokemons:[]
 };
 
 const reducers = (state = initState, action) => {
@@ -13,6 +14,12 @@ const reducers = (state = initState, action) => {
         ...state,
         data: { ...action.payload },
       };
+
+      case CHARGE_MAINPAGE:
+        return {
+          ...state,
+          pokemons: [ ...action.payload ],
+        }
 
     default:
       state;

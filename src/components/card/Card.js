@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./Card.scss";
 
 const Card = ({ id, name, sprites }) => {
-  const { other } = sprites;
-  const { dream_world } = other;
+  const { other = {} } = sprites || {};
+  const { dream_world = {}} = other;
   const { front_default } = dream_world;
 
   return (
