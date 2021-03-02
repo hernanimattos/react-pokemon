@@ -6,12 +6,13 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "webpack serve --mode development",
+		"dev": "webpack serve --mode development --open",
 		"start:local": "webpack serve",
 		"build": "webpack --mode production",
 		"build:local": "yarn build & yarn start",
-		"start": "node server/index.js",
-		"prod": "yarn build"
+		"start": "node server/server.js",
+		"prod": "yarn build",
+		"heroku-postbuild": "webpack -p"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
