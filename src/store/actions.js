@@ -1,9 +1,15 @@
 import axios from 'axios';
-import { CHARGE_MAINPAGE, SEARCH_ABILITY, SEARCH_NAME_OR_ID } from './types';
+import {
+    CHARGE_MAINPAGE,
+    SEARCH_ABILITY,
+    SEARCH_NAME_OR_ID,
+    LOADING,
+} from './types';
 import Http from '../provider/Http';
 
 const changePage = (url) => {
     return async (dispatch) => {
+        dispatch({ type: LOADING });
         const { data } = await axios.get(url);
         const { results, next, previous } = data;
 
@@ -24,6 +30,7 @@ const changePage = (url) => {
 
 const chargeMainPage = () => {
     return async (dispatch) => {
+        dispatch({ type: LOADING });
         const { data } = await Http.get('pokemon?limit=10');
         const { results, next, previous } = data;
 
@@ -44,6 +51,7 @@ const chargeMainPage = () => {
 
 const searchByName = (nameOrId) => {
     return async (dispatch) => {
+        dispatch({ type: LOADING });
         const { data } = await Http.get(`pokemon/${nameOrId}`);
         dispatch({ type: SEARCH_NAME_OR_ID, payload: data });
     };
@@ -51,6 +59,7 @@ const searchByName = (nameOrId) => {
 
 const searchByAbility = (ability) => {
     return async (dispatch) => {
+        dispatch({ type: LOADING });
         const { data } = await Http.get(`ability/${ability}`);
         const { pokemon } = data;
 

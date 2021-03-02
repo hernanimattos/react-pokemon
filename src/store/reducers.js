@@ -1,9 +1,15 @@
-import { CHARGE_MAINPAGE, SEARCH_ABILITY, SEARCH_NAME_OR_ID } from './types';
+import {
+    CHARGE_MAINPAGE,
+    SEARCH_ABILITY,
+    SEARCH_NAME_OR_ID,
+    LOADING,
+} from './types';
 
 const initState = {
     details: {},
     pokemons: [],
     showList: true,
+    load: false,
 };
 
 const reducers = (state = initState, action) => {
@@ -14,12 +20,14 @@ const reducers = (state = initState, action) => {
             return {
                 ...state,
                 showList: false,
+                load: false,
                 details: { ...action.payload },
             };
         case CHARGE_MAINPAGE:
             return {
                 ...state,
                 showList: true,
+                load: false,
                 pokemons: [...action.payload],
                 next: action.next,
                 previous: action.previous,
@@ -28,9 +36,16 @@ const reducers = (state = initState, action) => {
             return {
                 ...state,
                 showList: true,
+                load: false,
                 pokemons: [...action.payload],
                 next: action.next,
                 previous: action.previous,
+            };
+
+        case LOADING:
+            return {
+                ...state,
+                load: true,
             };
 
         default:

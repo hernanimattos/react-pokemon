@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import './Menu.scss';
 
@@ -6,9 +7,11 @@ const Menu = ({ getTerm, submit, getTypeSearch }) => {
     return (
         <header className="header">
             <nav className="container fx">
-                <div className="logo">
-                    <img src={Logo} alt="" />
-                </div>
+                <Link to="/">
+                    <div className="logo">
+                        <img src={Logo} alt="" />
+                    </div>
+                </Link>
 
                 <form className="form">
                     <div className="row ">

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { searchByAbility, searchByName, chargeMainPage } from './store/actions';
 import { connect } from 'react-redux';
+import { searchByAbility, searchByName, chargeMainPage } from './store/actions';
+import { Switch, Route, useHistory, withRouter } from 'react-router-dom';
+
 import CardContainer from './container/cardContainer/CardContainer';
 import DetailsContainer from './container/detailsContainer/DetailsContainer';
 import Menu from './components/menu/Menu';
-import { Switch, Route, useHistory, withRouter } from 'react-router-dom';
+import Loader from './components/loader/Loader';
 
 import './App.scss';
 
@@ -19,10 +21,16 @@ const mapStateToDispatch = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         pokemons: state.data,
+        load: state.load,
     };
 };
 
-const AppConnect = ({ chargeMainPage, searchByAbility, searchByName }) => {
+const AppConnect = ({
+    chargeMainPage,
+    searchByAbility,
+    searchByName,
+    load,
+}) => {
     const [term, setTerm] = useState('');
     const [typeSearch, setTypeSearch] = useState('name');
     let history = useHistory();
@@ -48,6 +56,7 @@ const AppConnect = ({ chargeMainPage, searchByAbility, searchByName }) => {
 
     return (
         <>
+            {load && <Loader />}
             <Menu
                 getTerm={(e) => setTerm(e.target.value)}
                 submit={() => submit()}
