@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { searchByName } from '../store/actions';
-import MainContainer from './MainContainer';
+import { searchByName } from '../../store/actions';
+
 import { useParams } from 'react-router-dom';
-import Card from "../components/card/Card";
+import Card from '../../components/card/Card';
 
 const mapStateToProps = (state) => {
 	return {
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapStateToDispatch = (dispatch) => {
 	return {
-		searchProxy: (type, id) => dispatch(searchByName( id)),
+		searchProxy: (type, id) => dispatch(searchByName(id)),
 	};
 };
 
@@ -25,9 +25,11 @@ const DetailsContainerConnect = ({ searchProxy, details }) => {
 	}, [id]);
 
 	console.log(id);
-	return <MainContainer>
-    <Card {...details}/>
-  </MainContainer>;
+	return (
+		<div className="container">
+			<Card {...details} />
+		</div>
+	);
 };
 
 const DetailsContainer = connect(

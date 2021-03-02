@@ -7,6 +7,7 @@ import {
 const initState = {
 	details: {},
 	pokemons: [],
+  showList:true
 };
 
 const reducers = (state = initState, action) => {
@@ -16,18 +17,24 @@ const reducers = (state = initState, action) => {
 		case SEARCH_NAME_OR_ID:
 			return {
 				...state,
+        showList: false,
 				details: { ...action.payload },
 			};
-
 		case CHARGE_MAINPAGE:
 			return {
 				...state,
+        showList: true,
 				pokemons: [...action.payload],
+        next: action.next,
+        previous: action.previous
 			};
 		case SEARCH_ABILITY:
 			return {
 				...state,
+        showList: true,
 				pokemons: [...action.payload],
+        next: action.next,
+        previous: action.previous
 			};
 
 		default:

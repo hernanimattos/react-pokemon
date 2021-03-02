@@ -2,8 +2,8 @@
 "use strict";
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const api = "teste.com";
-module.exports = function ({ api = "https://pokeapi.co/" }) {
+
+module.exports = function () {
   return {
     mode: "development",
     entry: { index: path.resolve(__dirname, "src", "index.js") },
@@ -85,6 +85,8 @@ module.exports = function ({ api = "https://pokeapi.co/" }) {
       historyApiFallback: true,
       contentBase: "./",
       hot: true,
+      open: 'Chrome',
+      port:9000
     },
     plugins: [
       new HtmlWebpackPlugin({
