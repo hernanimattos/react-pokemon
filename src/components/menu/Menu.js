@@ -11,8 +11,8 @@ const Menu = ({ getTerm, submit, getTypeSearch }) => {
 				</div>
 
 				<form className="form">
-					<div className="row">
-						<div className="form-input__form">
+					<div className="row ">
+						<div className="form-wrapper__input">
 							<div className="input-form">
 								<label htmlFor="name"> Nome ou número</label>
 								<input
@@ -37,11 +37,11 @@ const Menu = ({ getTerm, submit, getTypeSearch }) => {
 						</div>
 					</div>
 
-					<div className="row">
-						<div className="form-input__form">
-							<input type="text" className="search" onChange={getTerm} />
+					<div className="row row-search">
+						<div className="row-input_search">
+							<input type="search" className="search" onChange={getTerm} />
 						</div>
-						<div >
+						<div className="button-search" >
 							<button type="button" onClick={submit}>
 								buscar
 							</button>

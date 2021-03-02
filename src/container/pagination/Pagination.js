@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { changePage } from '../../store/actions';
 
+import './Pagination.scss';
+
 const mapStateToProps = (state) => {
 	return {
 		next: state.next,

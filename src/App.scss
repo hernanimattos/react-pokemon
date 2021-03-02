@@ -14,6 +14,7 @@ a {
 }
 
 input[type='text'],
+input[type='search'],
 select,
 button {
 	appearance: none;
@@ -47,4 +48,11 @@ form {
 }
 input {
 	display: flex;
+}
+button {
+	flex-grow: 1;
+	flex-shrink: 0;
+	display: block;
+	height: 100%;
+	padding: 0.5rem;
 }
