@@ -1,47 +1,51 @@
-import axios from "axios";
-import { SEARCH , CHARGE_MAINPAGE} from "./types";
-import Http from "../provider/Http";
-
+import axios from 'axios';
+import { SEARCH, CHARGE_MAINPAGE, SEARCH_ABILITY, SEARCH_NAME_OR_ID } from './types';
+import Http from '../provider/Http';
 
 const chargeMainPage = () => {
+	return async (dispatch) => {
+		const { data } = await Http.get('pokemon?limit=20&search=true');
+		const { results } = data;
 
-  return async  (dispatch) => {
-    const { data } = await Http.get("pokemon?limit=20&search=true");
-    const { results } = data;
+		// eslint-disable-next-line no-undef
+		const response = await Promise.all(
+			results.map((result) => axios.get(result.url)),
+		);
 
-    const response = await Promise.all(results.map((result) => axios.get(result.url)))
-
-    const newData = response.map((p) => p.data)
-    dispatch( {
-      type: CHARGE_MAINPAGE,
-      payload: newData
-    })
-  }
-}
-
-const searchByName = async (nameOrId) => {
-  const { data } = await Http.get(`pokemon/${nameOrId}`);
-
-  return data;
+		const newData = response.map((p) => p.data);
+		dispatch({
+			type: CHARGE_MAINPAGE,
+			payload: newData,
+		});
+	};
 };
 
-const searchByAbility = async (ability) => {
-  const { data } = await Http.get(`ability/${ability}`);
-
-  return data;
+const searchByName = (nameOrId) => {
+	return async (dispatch) => {
+		const { data } = await Http.get(`pokemon/${nameOrId}`);
+		dispatch({ type: SEARCH_NAME_OR_ID, payload: data });
+	};
 };
 
-const searchProxy = (type, term) => {
+const searchByAbility = (ability) => {
+	return async (dispatch) => {
+		const { data } = await Http.get(`ability/${ability}`);
 
-  return async (dispatch) => {
-    const typeSearch = {
-      ability: searchByAbility,
-      name: searchByName,
-    };
-    const data = await typeSearch[type](term);
+    console.log(data, " j")
+		const { pokemon } = data;
 
-    dispatch({ type: SEARCH, payload: data });
-  };
+    console.log(pokemon, " --")
+
+		// eslint-disable-next-line no-undef
+		const response = await Promise.all(
+			pokemon.map((result) => axios.get(result.pokemon.url)),
+		);
+
+    console.log(response, "---")
+		const newData = response.map((p) => p.data);
+
+		dispatch({ type: SEARCH_ABILITY, payload: newData });
+	};
 };
 
-export { searchProxy, chargeMainPage };
+export { searchByAbility, chargeMainPage, searchByName };

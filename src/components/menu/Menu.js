@@ -20,7 +20,8 @@ const Menu = ({ getTerm, submit, getTypeSearch }) => {
                 name="search"
                 value="name"
                 onChange={getTypeSearch}
-                checked
+                defaultChecked
+
               />
             </div>
             <div className="input-form">

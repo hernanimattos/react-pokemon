@@ -1,24 +1,31 @@
-import React from "react";
-import { connect } from "react-redux";
-import Card from "../components/card/Card";
-import MainContainer from "./MainContainer";
+import React from 'react';
+import { connect } from 'react-redux';
+import Card from '../components/card/Card';
+import MainContainer from './MainContainer';
+import Pagination from "../container/Pagination";
 
 const mapStateToProps = (state) => {
 
-  return {
-    data: state.data,
-    pokemons: state.pokemons
-  };
+  console.log(state)
+	return {
+		pokemons: state.pokemons,
+    details: state.details,
+	};
 };
 
-const CardContainerConect = ({data, pokemons}) => {
-  const isList  = Array.isArray(pokemons) && pokemons.length > 0
-  return (
-    <MainContainer>
-       { isList ? pokemons.map((props) => <Card {...props} key={props.name} />):
-       <Card {...data}/>}
-    </MainContainer>
-  );
+const CardContainerConect = ({ details, pokemons}) => {
+	return (
+		<MainContainer>
+			{pokemons  ? (
+				pokemons.map((props) => (
+					<Card {...props} key={props.name}  />
+				))
+			) : (
+				<Card {...details}  />
+			)}
+      <Pagination/>
+		</MainContainer>
+	);
 };
 const CardContainer = connect(mapStateToProps)(CardContainerConect);
 

@@ -1,62 +1,63 @@
-import React, { useEffect, useState } from "react";
-import { searchProxy, chargeMainPage } from "./store/actions";
-import { connect } from "react-redux";
-import CardContainer from "./container/CardContainer";
-import Details from "./components/details/Details";
-import Menu from "./components/menu/Menu";
-import Http from "./provider/Http";
-import axios from "axios";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { searchByAbility, searchByName, chargeMainPage } from './store/actions';
+import { connect } from 'react-redux';
+import CardContainer from './container/CardContainer';
+import DetailsContainer from './container/DetailsContainer';
+import Menu from './components/menu/Menu';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import "./App.scss";
+import './App.scss';
 
 const mapStateToDispatch = (dispatch) => {
-  return {
-    searchProxy: (type, term) => dispatch(searchProxy(type, term)),
-    chargeMainPage: () => dispatch(chargeMainPage())
-  };
+	return {
+		searchByAbility: (term) => dispatch(searchByAbility(term)),
+		chargeMainPage: () => dispatch(chargeMainPage()),
+		searchByName: (term) => dispatch(searchByName(term)),
+	};
 };
 
 const mapStateToProps = (state) => {
-  console.log(state, "---")
+	return {
+		pokemons: state.data,
+	};
+};
 
-return {
-  pokemons: state.data
-}
+const AppConnect = ({ chargeMainPage, searchByAbility, searchByName }) => {
+	const [term, setTerm] = useState('');
+	const [typeSearch, setTypeSearch] = useState('name');
 
-}
+	useEffect(() => {
+		chargeMainPage();
+	}, []);
 
-const AppConnect = ({ searchProxy, chargeMainPage, pokemons }) => {
+	const submit = () => {
+    if(!term) return
+		const type = {
+      ability: searchByAbility,
+			name: searchByName,
+		};
+		type[typeSearch](term);
+	};
 
-  console.log(pokemons, ' ---o-o-o-')
-  // const [pokemons, setPockemons] = useState([]);
-  const [term, setTerm] = useState("");
-  const [typeSearch, setTypeSearch] = useState("name");
+	return (
+		<BrowserRouter>
+			<Menu
+				getTerm={(e) => setTerm(e.target.value)}
+				submit={() => submit()}
+				getTypeSearch={(e) => setTypeSearch(e.target.value)}
+				type={typeSearch}
+			/>
 
-  useEffect(() => {
-    chargeMainPage()
-
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <Menu
-        getTerm={(e) => setTerm(e.target.value)}
-        submit={() => searchProxy(typeSearch, term)}
-        getTypeSearch={(e) => setTypeSearch(e.target.value)}
-        type={typeSearch}
-      />
-
-      <Switch>
-        <Route path="/" exact>
-          <CardContainer pokemons={pokemons} />
-        </Route>
-        <Route path="/:id" exact>
-          <Details />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+			<Switch>
+				<Route path="/" exact>
+					<CardContainer />
+				</Route>
+				<Route path="/:id" exact>
+					<DetailsContainer />
+				</Route>
+			</Switch>
+		</BrowserRouter>
+	);
 };
 
 const App = connect(mapStateToProps, mapStateToDispatch)(AppConnect);

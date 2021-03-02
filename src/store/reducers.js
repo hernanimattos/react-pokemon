@@ -1,31 +1,40 @@
-import { SEARCH, CHARGE_MAINPAGE } from "./types";
+import {
+	CHARGE_MAINPAGE,
+	SEARCH_ABILITY,
+	SEARCH_NAME_OR_ID,
+} from './types';
 
 const initState = {
-  data: [],
-  pokemons:[]
+	details: {},
+	pokemons: [],
 };
 
 const reducers = (state = initState, action) => {
-  const { type } = action;
+	const { type } = action;
 
-  switch (type) {
-    case SEARCH:
-      return {
-        ...state,
-        data: { ...action.payload },
-      };
+	switch (type) {
+		case SEARCH_NAME_OR_ID:
+			return {
+				...state,
+				details: { ...action.payload },
+			};
 
-      case CHARGE_MAINPAGE:
-        return {
-          ...state,
-          pokemons: [ ...action.payload ],
-        }
+		case CHARGE_MAINPAGE:
+			return {
+				...state,
+				pokemons: [...action.payload],
+			};
+		case SEARCH_ABILITY:
+			return {
+				...state,
+				pokemons: [...action.payload],
+			};
 
-    default:
-      state;
-      break;
-  }
-  return state;
+		default:
+			state;
+			break;
+	}
+	return state;
 };
 
 export default reducers;
