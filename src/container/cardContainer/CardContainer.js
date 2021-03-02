@@ -26,7 +26,7 @@ const CardContainerConect = ({ details, pokemons, showList}) => {
 			)}
 
 		</MainContainer>
-    <Pagination/>
+    {showList && <Pagination/>}
     </div>
 	);
 };

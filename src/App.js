@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CardContainer from './container/cardContainer/CardContainer';
 import DetailsContainer from './container/detailsContainer/DetailsContainer';
 import Menu from './components/menu/Menu';
-import {  Switch, Route, useHistory, withRouter } from 'react-router-dom';
+import { Switch, Route, useHistory, withRouter } from 'react-router-dom';
 
 import './App.scss';
 
@@ -25,34 +25,26 @@ const mapStateToProps = (state) => {
 const AppConnect = ({ chargeMainPage, searchByAbility, searchByName }) => {
 	const [term, setTerm] = useState('');
 	const [typeSearch, setTypeSearch] = useState('name');
-  let history = useHistory();
+	let history = useHistory();
 
-  function handleClick() {
-    history.push("/");
-  }
+	function handleClick() {
+		history.push('/');
+	}
 
 	useEffect(() => {
 		chargeMainPage();
 	}, []);
 
 	const submit = () => {
-    handleClick()
-    if(!term) return
-    routeMiddleware(term)
+		handleClick();
+		if (!term) return chargeMainPage();
+
 		const type = {
-      ability: searchByAbility,
+			ability: searchByAbility,
 			name: searchByName,
 		};
 		type[typeSearch](term);
 	};
-
-  const routeMiddleware = () => {
-
-
-
-    // return history.pushState('/')
-
-  }
 
 	return (
 		<>
@@ -75,6 +67,8 @@ const AppConnect = ({ chargeMainPage, searchByAbility, searchByName }) => {
 	);
 };
 
-const App = withRouter(connect(mapStateToProps, mapStateToDispatch)(AppConnect));
+const App = withRouter(
+	connect(mapStateToProps, mapStateToDispatch)(AppConnect),
+);
 
 export default App;
