@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev:local": "webpack serve --mode development --open",
         "start:local": "webpack serve",
-        "dev": "webpack --mode production",
+        "build": "webpack --mode production",
         "build:local": "yarn build & yarn start",
         "start": "node server/server.js",
         "prod": "yarn build",
