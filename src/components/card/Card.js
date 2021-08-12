@@ -7,6 +7,8 @@ const Card = ({ id, name, sprites }) => {
     const { dream_world = {} } = other;
     const { front_default } = dream_world;
 
+    console.log('teste')
+
     return (
         <Link to={`/${id}`} className="card">
             <article className="card-inner">
